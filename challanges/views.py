@@ -1,25 +1,33 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound,HttpResponseRedirect
 from django.urls import reverse
-
+# from django.template.loader import render_to_string
 
 
 monthly_challages = {
     "january": 'Hello',
-    "february": "YOOO wasup"
+    "february": "YOOO wasup",
+    "march": None,
 }
 
 def index(request):
-    list_items = ""
+    # list_items = ""
     months = list(monthly_challages.keys())
-    for month in months:
-        capitalized_month = month.capitalize()
-        month_path = reverse("monthly_challange", args=[month])
-        list_items += f"<li><a href=\"{month_path}\">{capitalized_month}</a></li>"
+    
+    return render(request,"challanges/index.html",{
+        "months": months
+    })
+    
+    
+    
+    # for month in months:
+    #     capitalized_month = month.capitalize()
+    #     month_path = reverse("monthly_challange", args=[month])
+    #     list_items += f"<li><a href=\"{month_path}\">{capitalized_month}</a></li>"
 
-    response_data = f"<ul>{list_items}</ul>"
+    # response_data = f"<ul>{list_items}</ul>"
 
-    return HttpResponse(response_data)
+    # return HttpResponse(response_data)
 
 
 
@@ -40,8 +48,13 @@ def monthly_challages_by_number(request,month):
 def monthly_challage(request,month):
     try:
         text = monthly_challages[month]
-        data = f"<h1>{text}</h1>"
-        return HttpResponse(data)
+        return render(request, "challanges/challange.html",{
+            "text": text,
+            "text2": month.capitalize(),
+        })
+        # data = render_to_string("challanges/challange.html")
+        # data = f"<h1>{text}</h1>"
+        # return HttpResponse(data)
     except :
         return HttpResponseNotFound("invalid")
 

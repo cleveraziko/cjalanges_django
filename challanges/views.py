@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound,HttpResponseRedirect
+from django.http import Http404, HttpResponseNotFound,HttpResponseRedirect, response
 from django.urls import reverse
-# from django.template.loader import render_to_string
+
 
 
 monthly_challages = {
@@ -56,7 +56,7 @@ def monthly_challage(request,month):
         # data = f"<h1>{text}</h1>"
         # return HttpResponse(data)
     except :
-        return HttpResponseNotFound("invalid")
+        raise Http404()
 
 
 

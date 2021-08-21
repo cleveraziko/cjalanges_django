@@ -9,10 +9,9 @@ All Challanges
 {%block content %}
 {%for month in months%}
 <ul>
-
-  <a href="{% url 'monthly_challange' month %}">
-    {{month|title}}</a>
-
+  <li>
+    <a href="{% url 'monthly_challange' month %}">
+      {{month|title}}</a></li>
 </ul>
 {%endfor%}
 {% endblock %}
